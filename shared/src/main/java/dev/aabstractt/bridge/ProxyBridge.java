@@ -15,10 +15,12 @@ public final class ProxyBridge {
 
     @Getter private final @NonNull String currentProxyName = "";
 
-    private final @NonNull Set<ProxyBridgeInfo> proxyBridgeInfos = new HashSet<>();
+    private @NonNull Set<ProxyBridgeInfo> proxyBridgeInfos = new HashSet<>();
     private @NonNull Set<ServerBridgeInfo> serverBridgeInfos = new HashSet<>();
 
-    public void init(@NonNull Set<ServerBridgeInfo> serverBridgeInfos) {
+    public void init(@NonNull Set<ProxyBridgeInfo> proxyBridgeInfos, @NonNull Set<ServerBridgeInfo> serverBridgeInfos) {
+        this.proxyBridgeInfos = proxyBridgeInfos;
+
         this.serverBridgeInfos = serverBridgeInfos;
     }
 

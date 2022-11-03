@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public final class RedisDataSource {
 
@@ -19,6 +20,10 @@ public final class RedisDataSource {
 
     public void init() {
         this.registerPacketHandler(new VanillaBridgePacketHandler());
+    }
+
+    public void query(@NonNull Consumer<Jedis> consumer) {
+
     }
 
     public void submit(@NonNull BridgePacket packet) {
