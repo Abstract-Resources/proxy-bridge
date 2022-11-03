@@ -39,7 +39,7 @@ public final class RedisDataSource {
 
     private void handlePacket(@NonNull BridgePacket packet) throws InvocationTargetException, IllegalAccessException {
         for (Object object : this.packetHandlers) {
-            Method method = this.getClassMethod(object.getClass(), packet.getClass().getSimpleName(), packet.getClass());
+            Method method = this.getClassMethod(object.getClass(), packet.getClass());
 
             if (method == null) continue;
 
@@ -47,9 +47,9 @@ public final class RedisDataSource {
         }
     }
 
-    private @Nullable Method getClassMethod(@NonNull Class<?> clazz, @NonNull String packetName, Class<? extends BridgePacket> parameterType) {
+    private @Nullable Method getClassMethod(@NonNull Class<?> clazz, @NonNull Class<? extends BridgePacket> packetClass) {
         try {
-            return clazz.getMethod("handle" + packetName, parameterType);
+            return clazz.getMethod("handle" + packetClass.getSimpleName(), packetClass);
         } catch (Exception e) {
             return null;
         }

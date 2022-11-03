@@ -18,9 +18,10 @@ public final class ProxyPlugin extends Plugin {
         RedisDataSource.getInstance().init();
 
         RedisDataSource.getInstance().submit(new ProxyStatusUpdatePacket(0)); // TODO: Change the packet constructor because not need request the pid on that
+        // TODO: I execute this function on synchronously because if I do this asynchronously it take some milliseconds
         RedisDataSource.getInstance().query(jedis -> {
-            Set<String> proxies = jedis.smembers("proxies"); // Get all proxies registered into redis cache
-            Set<String> servers = jedis.smembers("servers"); // Get all servers registered into redis cache
+            Set<String> proxies = jedis.smembers("proxies"); // Get all proxies stored into redis cache
+            Set<String> servers = jedis.smembers("servers"); // Get all servers stored into redis cache
 
             // Initialize bridge and cast all proxies/servers using the redis cache
             ProxyBridge.getInstance().init(
